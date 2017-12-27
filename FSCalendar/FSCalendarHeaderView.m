@@ -219,7 +219,15 @@
         }
     }
     text = usesUpperCase ? text.uppercaseString : text;
-    cell.titleLabel.text = text;
+    if (text) {
+        NSArray *splitArray = [text componentsSeparatedByString:@" "];
+        NSNumberFormatter *Formatter = [[NSNumberFormatter alloc] init];
+        NSLocale *locale = [NSLocale localeWithLocaleIdentifier:@"EN"];
+        [Formatter setLocale:locale];
+        NSNumber *newNum = [Formatter numberFromString:splitArray[1]];
+        cell.titleLabel.text = [NSString stringWithFormat:@"%@ %@",splitArray[0],newNum];
+    }
+   
     [cell setNeedsLayout];
 }
 
