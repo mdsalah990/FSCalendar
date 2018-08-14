@@ -204,10 +204,11 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     
     FSCalendarCollectionViewLayout *collectionViewLayout = [[FSCalendarCollectionViewLayout alloc] init];
     collectionViewLayout.calendar = self;
-    
+    [self isDeviceLanguageRightToLeft];
     FSCalendarCollectionView *collectionView = [[FSCalendarCollectionView alloc] initWithFrame:CGRectZero
                                                                           collectionViewLayout:collectionViewLayout];
-      if ([[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft) {
+    NSString *currentCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentLanguageKey"];
+    if ([currentCode isEqualToString:@"ar"]) {
     collectionView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
       }
     collectionView.dataSource = self;
@@ -250,6 +251,13 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
+}
+
+- (BOOL)isDeviceLanguageRightToLeft {
+    
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    NSLocaleLanguageDirection direction = [NSLocale characterDirectionForLanguage:[currentLocale objectForKey:NSLocaleLanguageCode]];
+    return (direction == NSLocaleLanguageDirectionRightToLeft);
 }
 
 - (void)dealloc

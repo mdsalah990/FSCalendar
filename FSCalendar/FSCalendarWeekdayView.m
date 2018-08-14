@@ -46,7 +46,11 @@
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
     [self addSubview:contentView];
     _contentView = contentView;
-      if ([[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft) {
+    NSString *currentLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+
+
+    NSString *currentCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentLanguageKey"];
+    if ([currentCode isEqualToString:@"ar"]) {
      contentView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
       }
     _weekdayPointers = [NSPointerArray weakObjectsPointerArray];
@@ -54,8 +58,11 @@
         UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         weekdayLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:weekdayLabel];
-        if ([[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft) {
-              weekdayLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+        NSString *currentLocalization = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+
+        NSString *currentCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentLanguageKey"];
+        if ([currentCode isEqualToString:@"ar"]) {
+             weekdayLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
         }
       
         [_weekdayPointers addPointer:(__bridge void * _Nullable)(weekdayLabel)];

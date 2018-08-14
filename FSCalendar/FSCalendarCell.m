@@ -85,7 +85,9 @@
     
     self.clipsToBounds = NO;
     self.contentView.clipsToBounds = NO;
-      if ([[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft) {
+   
+  NSString *currentCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentLanguageKey"];
+      if ([currentCode isEqualToString:@"ar"]) {
        self.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
       }
     
